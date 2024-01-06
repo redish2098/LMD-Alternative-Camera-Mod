@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 // Megagon
 using Il2CppMegagon.Downhill.Cameras;
+using LMD_ModMenu;
 
 [assembly: MelonInfo(typeof(AlternativeCamera), "Alternative Camera", "1.0.7", "DevdudeX")]
 [assembly: MelonGame()]
@@ -200,7 +201,14 @@ namespace AlternativeCameraMod
 			gamepadSettingsCat.SaveToFile();
 			cameraSettingsCat.SaveToFile();
 			otherSettingsCat.SaveToFile();
+
+			MenuManager.Instance.RegisterAction(this.Info.Name, "Enable First Person", 0, FirstPerson);
 		}
+
+       void FirstPerson(int callbackID)
+		{
+            ApplyCameraSettings(0f, new Vector3(0.0f, 0.3f, 0f), cfgFirstPersonFoV.Value, 0.6f, "neck_BindJNT");
+        }
 
 		public override void OnUpdate()
 		{
